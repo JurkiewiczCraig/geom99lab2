@@ -1,4 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
 
-
-<link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+@import "https://js.arcgis.com/4.28/@arcgis/core/assets/esri/themes/light/main.css";
+</Style>
+ <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
 <script src="https://js.arcgis.com/4.28/"></script>
+
+ 
+</head>
+<body>
+
+ 
+
+</body>
+</html>
