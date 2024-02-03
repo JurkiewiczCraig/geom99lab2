@@ -47,7 +47,62 @@
         select.setAttribute("class", "esri-widget esri-select");
         select.setAttribute("style", "width: 175px; font-family: 'Avenir Next W00'; font-size: 1em");
 
+        places.forEach((p) => {
+          const option = document.createElement("option");
+          option.value = p;
+          option.innerHTML = p;
+          select.appendChild(option);
+        });
+        view.ui.add(select, "top-right");
+        const locatorUrl = "http://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+      // Find places and add them to the map
+      function findPlaces(category, pt) {
+          locator
+            .addressToLocations(locatorUrl, {
+              location: pt,
+              categories: [category],
+              maxLocations: 25,
+              outFields: ["Place_addr", "PlaceName"]
+            })
+            .then((results) => {
+              view.closePopup();
+              view.graphics.removeAll();
+              results.forEach((result) => {
+                view.graphics.add(
+                  new Graphic({
+                    attributes: result.attributes, // Data attributes returned
+                    geometry: result.location, // Point returned
+                    symbol: {
+                      type: "simple-marker",
+                      color: "#000000",
+                      size: "12px",
+                      outline: {
+                        color: "#ffffff",
+                        width: "2px"
+                      }
+                    },
 
+                    popupTemplate: {
+                      title: "{PlaceName}", // Data attribute names
+                      content: "{Place_addr}"
+                    }
+                  })
+                );
+              });
+            });
+        }
+// Search for places in center of map
+reactiveUtils.when(
+          () => view.stationary,
+          () => {
+            findPlaces(select.value, view.center);
+          }
+        );
+
+        // Listen for category changes and find places
+        select.addEventListener("change", (event) => {
+          findPlaces(event.target.value, view.center);
+        });
 
       });
     </script>
