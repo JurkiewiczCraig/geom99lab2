@@ -1,50 +1,55 @@
  
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
-
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a Web Map</title>
     <style>
-      html,
-      body,
-      #viewDiv {
+      html, body, #viewDiv {
         padding: 0;
         margin: 0;
         height: 100%;
         width: 100%;
       }
     </style>
-
     <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.28/"></script>
-
+  
     <script>
-      require(["esri/config", "esri/Map", "esri/views/MapView", "esri.WebMap"], function(esriConfig, Map, MapView, WebMap) {
-
-        esriConfig.apiKey = "AAPKd2afabf5529b4430b572e8a39b35179a4tZQifqbvfxGtbZYrWuNiu-7WJ_RBsG8evFEueBzhJNwShf8bT9r3MPKINuFc60V";
-
-     
- 
-
-const webmap = new WebMap({
-  portalItem: { // autocasts as new PortalItem()
-    id: "b963e6239dcf4148bd58c331d988b4ff"
-  }
-});
-        const view = new MapView({
-          map: webmap,
-          center: [43.65032420165677, -79.40167913837894], // Longitude, latitude
-          zoom: 14, // Zoom level
-          container: "viewDiv" // Div element
+      require([
+        "esri/config",
+        "esri/Map",
+        "esri/WebMap",
+        "esri/views/MapView",
+        "esri/widgets/ScaleBar",
+        "esri/widgets/Legend"
+      ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) {
+  
+      esriConfig.apiKey = "AAPKd2afabf5529b4430b572e8a39b35179a4tZQifqbvfxGtbZYrWuNiu-7WJ_RBsG8evFEueBzhJNwShf8bT9r3MPKINuFc60V";
+  
+        const webmap = new WebMap({
+          portalItem: {
+            id: "b963e6239dcf4148bd58c331d988b4ff"
+          }
         });
-
-      });
+  
+        const view = new MapView({
+          container: "viewDiv",
+  
+          map: webmap
+  
+        });
+  
+        const scalebar = new ScaleBar({
+          view: view
+        });
+  
+        view.ui.add(scalebar, "bottom-left");
+  
+    });
     </script>
-
   </head>
   <body>
     <div id="viewDiv"></div>
   </body>
-</html>
+  </html>
