@@ -1,54 +1,60 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>Load a basic WebMap | Sample | ArcGIS Maps SDK for JavaScript 4.28</title>
+<!DOCTYPE html>
+<html> 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a Web Map</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
 
-    <style>
-      html,
-      body,
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+  <script>
+    require([
+      "esri/config",
+      "esri/Map",
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Legend"
+    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) {
 
-    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
+    esriConfig.apiKey = "AAPKd2afabf5529b4430b572e8a39b35179a4tZQifqbvfxGtbZYrWuNiu-7WJ_RBsG8evFEueBzhJNwShf8bT9r3MPKINuFc60V";
 
-    <script src="https://js.arcgis.com/4.28/"></script>
-
-    <script>
-      require(["esri/views/MapView", "esri/WebMap"], (MapView, WebMap) => {
-        /************************************************************
-         * Creates a new WebMap instance. A WebMap must reference
-         * a PortalItem ID that represents a WebMap saved to
-         * arcgis.com or an on-premise portal.
-         *
-         * To load a WebMap from an on-premise portal, set the portal
-         * url with esriConfig.portalUrl.
-         ************************************************************/
-        const webmap = new WebMap({
-          portalItem: {
-            // autocasts as new PortalItem()
-            id: "
-              "
-          }
-        });
-
-        /************************************************************
-         * Set the WebMap instance to the map property in a MapView.
-         ************************************************************/
-        const view = new MapView({
-          map: webmap,
-          container: "viewDiv"
-        });
+      const webmap = new WebMap({
+        portalItem: {
+          id: "b963e6239dcf4148bd58c331d988b4ff"
+        }
       });
-    </script>
-  </head>
 
-  <body>
-    <div id="viewDiv"></div>
-  </body>
+      const view = new MapView({
+        container: "viewDiv",
+
+        map: webmap
+
+      });
+
+      const scalebar = new ScaleBar({
+        view: view
+      });
+
+      view.ui.add(scalebar, "bottom-left");
+
+    const legend = new Legend ({
+        view: view
+      });
+      view.ui.add(legend, "top-right");
+
+  });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
 </html>
