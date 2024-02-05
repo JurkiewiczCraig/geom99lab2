@@ -22,8 +22,8 @@
       "esri/WebMap",
       "esri/views/MapView",
       "esri/widgets/ScaleBar",
-      "esri/widgets/Legend"
-    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) {
+     
+    ], function(esriConfig, WebMap, MapView, ScaleBar) {
 
     esriConfig.apiKey = "AAPKd2afabf5529b4430b572e8a39b35179a4tZQifqbvfxGtbZYrWuNiu-7WJ_RBsG8evFEueBzhJNwShf8bT9r3MPKINuFc60V";
 
@@ -44,13 +44,7 @@
         view: view
       });
 
-      view.ui.add(scalebar, "bottom-left");
-
-    const legend = new Legend ({
-        view: view
-      });
-      view.ui.add(legend, "top-right");
-
+ 
   });
   </script>
 </head>
