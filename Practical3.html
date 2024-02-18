@@ -35,16 +35,19 @@
     container: "viewDiv",
     map: map,
     center: [-118.80543,34.02700],
-    zoom: 3
+    zoom: 13
   });
 
-
-
-  const canada = new FeatureLayer({
+//Trailheads feature layer (points)
+  const trailheadsLayer = new FeatureLayer({
     url: "https://utility.arcgis.com/usrsvcs/servers/84a708a164d74e159eb1239eff690d1a/rest/services/geom99am/CraigjCanada/MapServer/0"
   });
 
-  map.add(canada);
+  map.add(trailheadsLayer);
+
+
+
+  });
 </script>
 
 </head>
