@@ -1,0 +1,63 @@
+<html>
+<head>
+  <meta name="description" content="Configure a popup">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a pop-up </title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+ <script>
+
+  require([
+      "esri/config",
+      "esri/Map",
+      "esri/views/MapView",
+
+      "esri/layers/FeatureLayer"
+    ],
+
+    function(esriConfig, Map, MapView, FeatureLayer){
+
+     esriConfig.apiKey = "AAPK7ea8e38f6b4b4f969ab170c41c01634akao_m4e5gL3AyABug_bvD9dN7kbXw7BSISXg4Y558XYUVj59ej6DtByYM0Cms4Tz";
+
+      const map = new Map({
+        basemap: "arcgis/topographic" // basemap styles service
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-118.80543,34.02700], //Longitude, latitude
+        zoom: 13
+      });
+
+      // Define a pop-up for Trailheads
+      const popupTrailheads = {
+        "title": "Trailhead",
+        "content": "<b>Trail:</b> {TRL_NAME}<br><b>City:</b> {CITY_JUR}<br><b>Cross Street:</b> {X_STREET}<br><b>Parking:</b> {PARKING}<br><b>Elevation:</b> {ELEV_FT} ft"
+      }
+   const trailheads = new FeatureLayer({
+        url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads_Styled/FeatureServer/0",
+        outFields: ["TRL_NAME","CITY_JUR","X_STREET","PARKING","ELEV_FT"],
+        popupTemplate: popupTrailheads
+      });
+
+      map.add(trailheads);
+    });
+  </script>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
